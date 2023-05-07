@@ -28,9 +28,6 @@ ENV DEBIAN_FRONTEND="noninteractive" \
 
 WORKDIR /local
 
-
 RUN apt-get update -y && \
-    pip3 install --no-cache-dir https://github.com/wmo-im/csv2bufr/archive/pygeoapi-debug.zip #&& \
-    pip3 install requests==2.28.0 dagster dagit paho-mqtt # buildkit
-
-
+    pip3 install --no-cache-dir https://github.com/wmo-im/csv2bufr/archive/pygeoapi-debug.zip && \
+    pip3 install requests==2.28.0 dagster dagit paho-mqtt
