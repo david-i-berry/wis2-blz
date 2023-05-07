@@ -1,6 +1,6 @@
 import base64
 import hashlib
-
+import os
 from csv2bufr import BUFRMessage
 from dagster import asset, get_dagster_logger
 from datetime import datetime as dt
@@ -181,8 +181,13 @@ def convert_to_bufr(get_data):
 def publish_message(convert_to_bufr):
     logger = get_dagster_logger()
     #mqtt connection details, move to env file
-    topic = "origin/a/wis2/blz/nms_db/data/core/weather/surface-based-observations/synop"
-
+    topic = os.getenv('WIS2_TOPIC')
+    broker = os.getenv("WIS2NODE_BROKER")
+    uid = os.getenv("WIS2NODE_USER")
+    pwd = os.getenv("WIS2NODE_PWD")
+    port = int(os.getenv("WIS2NODE_PORT"))
+    auth = {'username': uid, 'password': pwd}
+    cert_file = os.getenv("WIS2NODE_CERTFILE")
     tls = {
         'ca_certs': cert_file,
         'tls_version': ssl.PROTOCOL_TLSv1_2
